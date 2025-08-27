@@ -155,3 +155,27 @@ void jogarPeca() {
         printf("\nNao ha pecas para jogar na fila!\n");
     }
 }
+
+void reservarPeca() {
+    if (topoPilha >= PILHA_CAPACIDADE - 1) {
+        printf("\nA pilha de reserva esta cheia! Nao e possivel reservar mais pecas.\n");
+        return;
+    }
+    if (countFila > 0) {
+        Peca pecaParaReservar = fila[frente];
+        topoPilha++;
+        pilha[topoPilha] = pecaParaReservar;
+        
+        printf("\nPeca [%s-%d] movida da fila para a pilha de reserva.\n", pecaParaReservar.nome, pecaParaReservar.id);
+        
+        frente = (frente + 1) % FILA_CAPACIDADE;
+        
+        Peca novaPeca = gerarPeca();
+        tras = (tras + 1) % FILA_CAPACIDADE;
+        fila[tras] = novaPeca;
+        printf("Nova peca [%s-%d] inserida na fila.\n", novaPeca.nome, novaPeca.id);
+    } else {
+        printf("\nA fila esta vazia! Nao ha pecas para reservar.\n");
+    }
+    ultimaJogadaValida = 0;
+}
