@@ -123,5 +123,21 @@ void exibirFila() {
     printf(" :Tras\n");
 }
 
+void exibirPilha() {
+    printf("\n--- Pilha de Reserva ---\n");
+    if (topoPilha == -1) {
+        printf("[Pilha vazia]\n");
+        return;
+    }
+    printf("Topo: ");
+    for (int i = topoPilha; i >= 0; i--) {
+        printf("[%s-%d]", pilha[i].nome, pilha[i].id);
+        if (i > 0) {
+            printf(" -> ");
+        }
+    }
+    printf(" :Base\n");
+}
+
 
 
