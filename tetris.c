@@ -139,5 +139,19 @@ void exibirPilha() {
     printf(" :Base\n");
 }
 
+void jogarPeca() {
+    if (countFila > 0) {
+        ultimaPecaJogada = fila[frente];
+        ultimaJogadaValida = 1;
+        printf("\nVoce jogou a peca: [%s-%d]\n", ultimaPecaJogada.nome, ultimaPecaJogada.id);
 
-
+        frente = (frente + 1) % FILA_CAPACIDADE;
+        
+        Peca novaPeca = gerarPeca();
+        tras = (tras + 1) % FILA_CAPACIDADE;
+        fila[tras] = novaPeca;
+        printf("Nova peca [%s-%d] inserida na fila.\n", novaPeca.nome, novaPeca.id);
+    } else {
+        printf("\nNao ha pecas para jogar na fila!\n");
+    }
+}
