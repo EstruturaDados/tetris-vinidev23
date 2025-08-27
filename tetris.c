@@ -21,3 +21,17 @@ int topoPilha = -1;
 
 Peca ultimaPecaJogada;
 int ultimaJogadaValida = 0;
+
+void inicializarFila();
+P gerarPeca();
+void exibirFila();
+void exibirPilha();
+void jogarPeca();
+void reservarPeca();
+void usarPecaReservada();
+void trocarPeca();
+void desfazerJogada();
+void inverterEstruturas();
+void limparBufferEntrada();
+void pause();
+
