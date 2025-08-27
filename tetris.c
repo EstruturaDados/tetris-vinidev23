@@ -98,3 +98,12 @@ void inicializarFila() {
     }
 }
 
+Peca gerarPeca() {
+    Peca novaPeca;
+    char tipos[7][5] = {"I", "O", "T", "L", "J", "S", "Z"};
+    strcpy(novaPeca.nome, tipos[rand() % 7]);
+    novaPeca.id = rand() % 1000 + 1;
+    return novaPeca;
+}
+
+
