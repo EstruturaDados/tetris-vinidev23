@@ -179,3 +179,19 @@ void reservarPeca() {
     }
     ultimaJogadaValida = 0;
 }
+
+void usarPecaReservada() {
+    if (topoPilha == -1) {
+        printf("\nA pilha de reserva esta vazia! Nao ha pecas para usar.\n");
+        return;
+    }
+
+    Peca pecaParaUsar = pilha[topoPilha];
+    
+    frente = (frente - 1 + FILA_CAPACIDADE) % FILA_CAPACIDADE;
+    fila[frente] = pecaParaUsar;
+    
+    topoPilha--;
+    printf("\nPeca [%s-%d] movida da pilha para a frente da fila.\n", pecaParaUsar.nome, pecaParaUsar.id);
+    ultimaJogadaValida = 0;
+}
