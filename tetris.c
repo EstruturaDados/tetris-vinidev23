@@ -106,4 +106,22 @@ Peca gerarPeca() {
     return novaPeca;
 }
 
+void exibirFila() {
+    printf("\n--- Fila de Pecas ---\n");
+    if (countFila == 0) {
+        printf("[Fila vazia]\n");
+        return;
+    }
+    printf("Frente: ");
+    for (int i = 0; i < countFila; i++) {
+        int index = (frente + i) % FILA_CAPACIDADE;
+        printf("[%s-%d]", fila[index].nome, fila[index].id);
+        if (i < countFila - 1) {
+            printf(" -> ");
+        }
+    }
+    printf(" :Tras\n");
+}
+
+
 
