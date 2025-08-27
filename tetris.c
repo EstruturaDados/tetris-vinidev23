@@ -87,4 +87,14 @@ int main() {
     return 0;
 }
 
+void inicializarFila() {
+    for (int i = 0; i < FILA_CAPACIDADE; i++) {
+        Peca novaPeca = gerarPeca();
+        if (countFila < FILA_CAPACIDADE) {
+            tras = (tras + 1) % FILA_CAPACIDADE;
+            fila[tras] = novaPeca;
+            countFila++;
+        }
+    }
+}
 
