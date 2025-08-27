@@ -195,3 +195,87 @@ void usarPecaReservada() {
     printf("\nPeca [%s-%d] movida da pilha para a frente da fila.\n", pecaParaUsar.nome, pecaParaUsar.id);
     ultimaJogadaValida = 0;
 }
+
+void trocarPeca() {
+    if (topoPilha == -1) {
+        printf("\nA pilha esta vazia. Nao e possivel realizar a troca.\n");
+        return;
+    }
+    if (countFila == 0) {
+        printf("\nA fila esta vazia. Nao e possivel realizar a troca.\n");
+        return;
+    }
+
+    Peca temp = fila[frente];
+    fila[frente] = pilha[topoPilha];
+    pilha[topoPilha] = temp;
+
+    printf("\nTroca realizada com sucesso!\n");
+    printf("Peca [%s-%d] foi para a fila e [%s-%d] para a pilha.\n", fila[frente].nome, fila[frente].id, pilha[topoPilha].nome, pilha[topoPilha].id);
+    ultimaJogadaValida = 0;
+}
+
+void desfazerJogada() {
+    if (ultimaJogadaValida) {
+        tras = (tras - 1 + FILA_CAPACIDADE) % FILA_CAPACIDADE;
+        fila[tras] = fila[(tras - 1 + FILA_CAPACIDADE) % FILA_CAPACIDADE];
+        fila[frente] = ultimaPecaJogada;
+        
+        printf("\nUltima jogada desfeita. Peca [%s-%d] retornou para a frente da fila.\n", ultimaPecaJogada.nome, ultimaPecaJogada.id);
+        
+        Peca pecaRemovida = fila[tras];
+        tras = (tras - 1 + FILA_CAPACIDADE) % FILA_CAPACIDADE;
+
+        strcpy(pecaRemovida.nome, "");
+        pecaRemovida.id = 0;
+
+        ultimaJogadaValida = 0;
+    } else {
+        printf("\nNao ha jogada valida para ser desfeita.\n");
+    }
+}
+
+void inverterEstruturas() {
+    if (countFila != FILA_CAPACIDADE || topoPilha == -1) {
+        printf("\nPara inverter, a fila deve estar cheia e a pilha nao vazia.\n");
+        return;
+    }
+    
+    Peca tempFila[FILA_CAPACIDADE];
+    int j = 0;
+    for (int i = topoPilha; i >= 0; i--) {
+        tempFila[j++] = pilha[i];
+    }
+
+    Peca tempPilha[FILHA_CAPACIDADE];
+    int k = 0;
+    for (int i = (frente + countFila -1) % FILA_CAPACIDADE; i >= frente; i = (i - 1 + FILA_CAPACIDADE) % FILA_CAPACIDADE) {
+        tempPilha[k++] = fila[i];
+    }
+    
+    frente = 0;
+    tras = -1;
+    for(int i = 0; i < k; i++) {
+        tras = (tras + 1) % FILA_CAPACIDADE;
+        fila[tras] = tempPilha[i];
+    }
+    
+    topoPilha = -1;
+    for (int i = 0; i < j; i++) {
+        topoPilha++;
+        pilha[topoPilha] = tempFila[i];
+    }
+    
+    printf("\nFila e Pilha invertidas com sucesso!\n");
+    ultimaJogadaValida = 0;
+}
+
+void limparBufferEntrada() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
+}
+
+void pause() {
+    printf("\nPressione ENTER para continuar...\n");
+    limparBufferEntrada();
+}
